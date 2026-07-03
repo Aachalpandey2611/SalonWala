@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
@@ -23,8 +23,15 @@ app.use(cors());
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
-// Data sanitization against NoSQL query injection
-app.use(mongoSanitize());
+// Data sanitization against NoSQL query injection (skip req.query — read-only in Express 5)
+app.use((req: Request, _res: Response, next: NextFunction) => {
+  try {
+    const sanitizer = (mongoSanitize as any).sanitize;
+    if (req.body) req.body = sanitizer(req.body);
+    if (req.params) req.params = sanitizer(req.params);
+  } catch (e) { /* ignore */ }
+  next();
+});
 
 // Data sanitization against XSS
 app.use(xssProtection);

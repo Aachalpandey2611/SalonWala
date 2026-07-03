@@ -20,7 +20,7 @@ const clean = (data: any): any => {
 
 export const xssProtection = (req: Request, res: Response, next: NextFunction) => {
   if (req.body) req.body = clean(req.body);
-  if (req.query) req.query = clean(req.query);
   if (req.params) req.params = clean(req.params);
+  // Note: req.query is read-only in Express 5 — skipping to avoid crashes
   next();
 };
