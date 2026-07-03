@@ -1,0 +1,65 @@
+{
+  "info": {
+    "name": "SalonWala Transaction Ledger Engine",
+    "description": "Postman Collection for Double-Entry Ledger Engine.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Ledger API",
+      "item": [
+        {
+          "name": "Get Customer Ledger",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_CUSTOMER_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/ledger/customer", "host": ["http://localhost:5000"], "path": ["api", "v1", "ledger", "customer"]}
+          }
+        },
+        {
+          "name": "Get Salon Ledger",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_SALON_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/ledger/salon/:salonId", "host": ["http://localhost:5000"], "path": ["api", "v1", "ledger", "salon", ":salonId"]},
+            "variable": [{"key": "salonId", "value": "SALON_ID_HERE"}]
+          }
+        },
+        {
+          "name": "Get Account Balance",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ADMIN_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/ledger/account/:accountId/balance", "host": ["http://localhost:5000"], "path": ["api", "v1", "ledger", "account", ":accountId", "balance"]},
+            "variable": [{"key": "accountId", "value": "ACCOUNT_ID_HERE"}]
+          }
+        },
+        {
+          "name": "Post Manual Adjustment",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_SUPERADMIN_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/ledger/manual", "host": ["http://localhost:5000"], "path": ["api", "v1", "ledger", "manual"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transactionId\": \"ADJ-001\",\n  \"transactionType\": \"MANUAL_ADJUSTMENT\",\n  \"description\": \"Correcting missing balance\",\n  \"entries\": [\n    {\n      \"accountId\": \"ASSET_ACCOUNT_ID\",\n      \"direction\": \"DEBIT\",\n      \"amount\": 500\n    },\n    {\n      \"accountId\": \"REVENUE_ACCOUNT_ID\",\n      \"direction\": \"CREDIT\",\n      \"amount\": 500\n    }\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Reverse Journal",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_SUPERADMIN_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/ledger/:id/reverse", "host": ["http://localhost:5000"], "path": ["api", "v1", "ledger", ":id", "reverse"]},
+            "variable": [{"key": "id", "value": "JOURNAL_ID_HERE"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Duplicate entry created by mistake\"\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

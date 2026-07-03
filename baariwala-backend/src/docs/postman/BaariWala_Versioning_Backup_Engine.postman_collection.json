@@ -1,0 +1,64 @@
+{
+  "info": {
+    "name": "SalonWala Versioning & Backup Engine",
+    "description": "Postman Collection for SalonWala Phase 10 API Versioning and BDR (Backup & Disaster Recovery).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get API Registry",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/versioning/registry", "host": ["http://localhost:5000"], "path": ["api", "v1", "versioning", "registry"]}
+      }
+    },
+    {
+      "name": "Update Client Compatibility",
+      "request": {
+        "method": "PUT",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/versioning/client-compat", "host": ["http://localhost:5000"], "path": ["api", "v1", "versioning", "client-compat"]},
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"platform\": \"IOS\",\n  \"minSupportedVersion\": \"1.0.0\",\n  \"latestVersion\": \"1.1.0\",\n  \"deprecationWarningThreshold\": \"1.0.5\"\n}",
+          "options": {"raw": {"language": "json"}}
+        }
+      }
+    },
+    {
+      "name": "Get Backup Dashboard",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/backup/dashboard", "host": ["http://localhost:5000"], "path": ["api", "v1", "backup", "dashboard"]}
+      }
+    },
+    {
+      "name": "Trigger Backup",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/backup/trigger", "host": ["http://localhost:5000"], "path": ["api", "v1", "backup", "trigger"]},
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"type\": \"DATABASE\"\n}",
+          "options": {"raw": {"language": "json"}}
+        }
+      }
+    },
+    {
+      "name": "Trigger Restore",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/backup/restore", "host": ["http://localhost:5000"], "path": ["api", "v1", "backup", "restore"]},
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"backupJobId\": \"64c9d5d...\"\n}",
+          "options": {"raw": {"language": "json"}}
+        }
+      }
+    }
+  ]
+}

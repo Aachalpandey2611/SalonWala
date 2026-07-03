@@ -1,0 +1,38 @@
+{
+  "info": {
+    "name": "SalonWala Deployment & CI/CD Engine",
+    "description": "Postman Collection for SalonWala Phase 11 Deployment endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Deployment History",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/deployment/history", "host": ["http://localhost:5000"], "path": ["api", "v1", "deployment", "history"]}
+      }
+    },
+    {
+      "name": "Get Releases",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/deployment/releases", "host": ["http://localhost:5000"], "path": ["api", "v1", "deployment", "releases"]}
+      }
+    },
+    {
+      "name": "GitHub Actions Webhook",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {"raw": "http://localhost:5000/api/v1/deployment/webhook", "host": ["http://localhost:5000"], "path": ["api", "v1", "deployment", "webhook"]},
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"environment\": \"PRODUCTION\",\n  \"version\": \"1.0.0\",\n  \"commitHash\": \"e5a9c9f\",\n  \"status\": \"SUCCESS\",\n  \"deployedBy\": \"GitHub Actions\",\n  \"logsUrl\": \"https://github.com/SalonWala/SalonWala-backend/actions/runs/12345\"\n}",
+          "options": {"raw": {"language": "json"}}
+        }
+      }
+    }
+  ]
+}

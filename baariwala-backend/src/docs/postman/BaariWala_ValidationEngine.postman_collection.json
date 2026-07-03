@@ -1,0 +1,38 @@
+{
+  "info": {
+    "name": "SalonWala Booking Validation Engine",
+    "description": "Postman Collection for SalonWala Intelligent Decision Engine APIs. Tests validity before saving appointments.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Validation Rules",
+      "item": [
+        {
+          "name": "Validate Booking",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/validations/booking", "host": ["http://localhost:5000"], "path": ["api", "v1", "validations", "booking"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"salonId\": \"SALON_ID\",\n  \"branchId\": \"BRANCH_ID\",\n  \"barberId\": \"BARBER_ID\",\n  \"customerId\": \"CUSTOMER_ID\",\n  \"primaryServiceId\": \"SERVICE_ID\",\n  \"appointmentDate\": \"2023-12-05\",\n  \"appointmentStartTime\": \"14:30\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Validate Walk-in",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/validations/walk-in", "host": ["http://localhost:5000"], "path": ["api", "v1", "validations", "walk-in"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"salonId\": \"SALON_ID\",\n  \"branchId\": \"BRANCH_ID\",\n  \"barberId\": \"BARBER_ID\",\n  \"customerId\": \"CUSTOMER_ID\",\n  \"primaryServiceId\": \"SERVICE_ID\",\n  \"appointmentDate\": \"2023-12-05\",\n  \"appointmentStartTime\": \"14:30\"\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

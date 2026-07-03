@@ -1,0 +1,38 @@
+{
+  "info": {
+    "name": "SalonWala Forecasting Engine",
+    "description": "Postman Collection for SalonWala AI Insights & Forecasting Engine.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Revenue Forecast",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/forecasts/revenue", "host": ["http://localhost:5000"], "path": ["api", "v1", "forecasts", "revenue"]}
+      }
+    },
+    {
+      "name": "Get AI Recommendations",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/forecasts/recommendations", "host": ["http://localhost:5000"], "path": ["api", "v1", "forecasts", "recommendations"]}
+      }
+    },
+    {
+      "name": "Action Recommendation",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/forecasts/recommendations/:id/action", "host": ["http://localhost:5000"], "path": ["api", "v1", "forecasts", "recommendations", ":id", "action"]},
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"ACCEPTED\"\n}",
+          "options": {"raw": {"language": "json"}}
+        }
+      }
+    }
+  ]
+}

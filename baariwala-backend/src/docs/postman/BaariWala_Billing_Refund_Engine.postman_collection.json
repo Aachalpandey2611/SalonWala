@@ -1,0 +1,102 @@
+{
+  "info": {
+    "name": "SalonWala Billing & Refund Engine",
+    "description": "Postman Collection for Billing, Invoice, Refund and Settlement Engines.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Billing & Invoice API",
+      "item": [
+        {
+          "name": "Generate Invoice",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ADMIN_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/billing/generate", "host": ["http://localhost:5000"], "path": ["api", "v1", "billing", "generate"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bookingId\": \"BOOKING_ID_HERE\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Invoices",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ADMIN_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/billing?salonId=SALON_ID_HERE", "host": ["http://localhost:5000"], "path": ["api", "v1", "billing"], "query": [{"key": "salonId", "value": "SALON_ID_HERE"}]}
+          }
+        },
+        {
+          "name": "Get Single Invoice",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ADMIN_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/billing/:invoiceId", "host": ["http://localhost:5000"], "path": ["api", "v1", "billing", ":invoiceId"]},
+            "variable": [{"key": "invoiceId", "value": "INVOICE_ID_HERE"}]
+          }
+        },
+        {
+          "name": "Download Invoice PDF",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ADMIN_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/billing/:invoiceId/pdf", "host": ["http://localhost:5000"], "path": ["api", "v1", "billing", ":invoiceId", "pdf"]},
+            "variable": [{"key": "invoiceId", "value": "INVOICE_ID_HERE"}]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Refund & Settlement API",
+      "item": [
+        {
+          "name": "Get Refund Requests",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_CUSTOMER_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/refund/requests", "host": ["http://localhost:5000"], "path": ["api", "v1", "refund", "requests"]}
+          }
+        },
+        {
+          "name": "Process Refund Request",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ADMIN_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/refund/requests/:refundRequestId/process", "host": ["http://localhost:5000"], "path": ["api", "v1", "refund", "requests", ":refundRequestId", "process"]},
+            "variable": [{"key": "refundRequestId", "value": "REQ_ID_HERE"}]
+          }
+        },
+        {
+          "name": "Get Refunds",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_CUSTOMER_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/refund", "host": ["http://localhost:5000"], "path": ["api", "v1", "refund"]}
+          }
+        },
+        {
+          "name": "Generate Settlement Batch",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ADMIN_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/refund/settlements/generate", "host": ["http://localhost:5000"], "path": ["api", "v1", "refund", "settlements", "generate"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"periodStart\": \"2026-07-01T00:00:00Z\",\n  \"periodEnd\": \"2026-07-02T23:59:59Z\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Settlements",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_SALON_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/refund/settlements?salonId=SALON_ID_HERE", "host": ["http://localhost:5000"], "path": ["api", "v1", "refund", "settlements"], "query": [{"key": "salonId", "value": "SALON_ID_HERE"}]}
+          }
+        }
+      ]
+    }
+  ]
+}

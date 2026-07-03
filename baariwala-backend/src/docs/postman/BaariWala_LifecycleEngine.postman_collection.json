@@ -1,0 +1,86 @@
+{
+  "info": {
+    "name": "SalonWala Booking Lifecycle Engine",
+    "description": "Postman Collection for SalonWala Booking Lifecycle. Manages state machine transitions.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Lifecycle Transitions",
+      "item": [
+        {
+          "name": "Confirm Booking",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/lifecycle/APPOINTMENT_ID/confirm", "host": ["http://localhost:5000"], "path": ["api", "v1", "lifecycle", "APPOINTMENT_ID", "confirm"]}
+          }
+        },
+        {
+          "name": "Check-In",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/lifecycle/APPOINTMENT_ID/check-in", "host": ["http://localhost:5000"], "path": ["api", "v1", "lifecycle", "APPOINTMENT_ID", "check-in"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"QR\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Assign Barber",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/lifecycle/APPOINTMENT_ID/assign", "host": ["http://localhost:5000"], "path": ["api", "v1", "lifecycle", "APPOINTMENT_ID", "assign"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"barberId\": \"BARBER_ID\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Start Service",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/lifecycle/APPOINTMENT_ID/start", "host": ["http://localhost:5000"], "path": ["api", "v1", "lifecycle", "APPOINTMENT_ID", "start"]}
+          }
+        },
+        {
+          "name": "Complete Service",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/lifecycle/APPOINTMENT_ID/complete", "host": ["http://localhost:5000"], "path": ["api", "v1", "lifecycle", "APPOINTMENT_ID", "complete"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notes\": \"Haircut went perfectly well\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Cancel Booking",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/lifecycle/APPOINTMENT_ID/cancel", "host": ["http://localhost:5000"], "path": ["api", "v1", "lifecycle", "APPOINTMENT_ID", "cancel"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Changed my mind\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Mark No-Show",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/lifecycle/APPOINTMENT_ID/no-show", "host": ["http://localhost:5000"], "path": ["api", "v1", "lifecycle", "APPOINTMENT_ID", "no-show"]}
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "info": {
+    "name": "SalonWala Barber Workforce Management",
+    "description": "Postman Collection for SalonWala Barber Workforce APIs.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Barber Profiles",
+      "item": [
+        {
+          "name": "Create Barber",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/barbers", "host": ["http://localhost:5000"], "path": ["api", "v1", "barbers"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeeCode\": \"EMP001\",\n  \"salonId\": \"SALON_ID\",\n  \"defaultBranchId\": \"BRANCH_ID\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"phone\": \"9876543210\",\n  \"gender\": \"MALE\",\n  \"experienceInYears\": 5\n}"
+            }
+          }
+        },
+        {
+          "name": "Search Barbers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {"raw": "http://localhost:5000/api/v1/barbers/search?salonId=SALON_ID&status=ACTIVE", "host": ["http://localhost:5000"], "path": ["api", "v1", "barbers", "search"]}
+          }
+        },
+        {
+          "name": "Update Barber",
+          "request": {
+            "method": "PATCH",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/barbers/BARBER_ID", "host": ["http://localhost:5000"], "path": ["api", "v1", "barbers", "BARBER_ID"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employmentStatus\": \"SUSPENDED\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Branch Assignments",
+      "item": [
+        {
+          "name": "Assign Branch",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/barbers/BARBER_ID/branches", "host": ["http://localhost:5000"], "path": ["api", "v1", "barbers", "BARBER_ID", "branches"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"branchId\": \"SECONDARY_BRANCH_ID\",\n  \"assignmentType\": \"TEMPORARY\",\n  \"validTo\": \"2023-12-31\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Skills & Services",
+      "item": [
+        {
+          "name": "Assign Skill",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/barbers/BARBER_ID/skills", "host": ["http://localhost:5000"], "path": ["api", "v1", "barbers", "BARBER_ID", "skills"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"serviceId\": \"SERVICE_ID\",\n  \"skillLevel\": \"EXPERT\",\n  \"yearsOfExperience\": 4\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Barber Skills",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {"raw": "http://localhost:5000/api/v1/barbers/BARBER_ID/skills", "host": ["http://localhost:5000"], "path": ["api", "v1", "barbers", "BARBER_ID", "skills"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Media Uploads",
+      "item": [
+        {
+          "name": "Upload Certification",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/barbers/BARBER_ID/certifications", "host": ["http://localhost:5000"], "path": ["api", "v1", "barbers", "BARBER_ID", "certifications"]},
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {"key": "image", "type": "file", "src": []},
+                {"key": "certificateName", "value": "L'Oreal Master Stylist", "type": "text"},
+                {"key": "issuedBy", "value": "L'Oreal Professional", "type": "text"},
+                {"key": "issueDate", "value": "2020-01-01", "type": "text"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Upload Portfolio Images",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/barbers/BARBER_ID/portfolio", "host": ["http://localhost:5000"], "path": ["api", "v1", "barbers", "BARBER_ID", "portfolio"]},
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {"key": "images", "type": "file", "src": []},
+                {"key": "images", "type": "file", "src": []},
+                {"key": "category", "value": "HAIRCUTS", "type": "text"},
+                {"key": "caption", "value": "Premium fade work", "type": "text"}
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

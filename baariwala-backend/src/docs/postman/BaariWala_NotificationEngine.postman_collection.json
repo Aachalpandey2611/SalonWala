@@ -1,0 +1,59 @@
+{
+  "info": {
+    "name": "SalonWala Notification Hub",
+    "description": "Postman Collection for Notification endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "Get User Notifications",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/notifications", "host": ["http://localhost:5000"], "path": ["api", "v1", "notifications"]}
+          }
+        },
+        {
+          "name": "Mark As Read",
+          "request": {
+            "method": "PATCH",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/notifications/:id/read", "host": ["http://localhost:5000"], "path": ["api", "v1", "notifications", ":id", "read"]},
+            "variable": [{"key": "id", "value": "NOTIFICATION_ID"}]
+          }
+        },
+        {
+          "name": "Mark All As Read",
+          "request": {
+            "method": "PATCH",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/notifications/read-all", "host": ["http://localhost:5000"], "path": ["api", "v1", "notifications", "read-all"]}
+          }
+        },
+        {
+          "name": "Get User Preferences",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/notifications/preferences", "host": ["http://localhost:5000"], "path": ["api", "v1", "notifications", "preferences"]}
+          }
+        },
+        {
+          "name": "Update User Preferences",
+          "request": {
+            "method": "PATCH",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/notifications/preferences", "host": ["http://localhost:5000"], "path": ["api", "v1", "notifications", "preferences"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pushEnabled\": true,\n  \"emailEnabled\": false,\n  \"dndEnabled\": true,\n  \"dndStartHour\": \"22:00\",\n  \"dndEndHour\": \"07:00\"\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

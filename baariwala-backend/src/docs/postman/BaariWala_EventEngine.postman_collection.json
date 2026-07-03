@@ -1,0 +1,66 @@
+{
+  "info": {
+    "name": "SalonWala Event Bus Engine",
+    "description": "Postman Collection for Event Driven Architecture endpoints (Publish, Retry, DLQ).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "Publish Event",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/events/publish", "host": ["http://localhost:5000"], "path": ["api", "v1", "events", "publish"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventType\": \"AppointmentCreated\",\n  \"producer\": \"BookingEngine\",\n  \"payload\": { \"appointmentId\": \"123\", \"customerId\": \"abc\" },\n  \"correlationId\": \"req-555\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Events",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/events", "host": ["http://localhost:5000"], "path": ["api", "v1", "events"]}
+          }
+        },
+        {
+          "name": "Get Pending Retries",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/events/pending", "host": ["http://localhost:5000"], "path": ["api", "v1", "events", "pending"]}
+          }
+        },
+        {
+          "name": "Trigger Retry Processor",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/events/process-retries", "host": ["http://localhost:5000"], "path": ["api", "v1", "events", "process-retries"]}
+          }
+        },
+        {
+          "name": "Get Dead Letter Queue",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/events/dlq", "host": ["http://localhost:5000"], "path": ["api", "v1", "events", "dlq"]}
+          }
+        },
+        {
+          "name": "Replay DLQ Message",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/events/dlq/DLQ_ID_HERE/replay", "host": ["http://localhost:5000"], "path": ["api", "v1", "events", "dlq", "DLQ_ID_HERE", "replay"]}
+          }
+        }
+      ]
+    }
+  ]
+}

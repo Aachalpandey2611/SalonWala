@@ -1,0 +1,54 @@
+{
+  "info": {
+    "name": "SalonWala Monitoring & Security Engine",
+    "description": "Postman Collection for SalonWala Phase 10 Monitoring and Security.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Monitoring Dashboard",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/monitoring/dashboard", "host": ["http://localhost:5000"], "path": ["api", "v1", "monitoring", "dashboard"]}
+      }
+    },
+    {
+      "name": "Resolve Alert",
+      "request": {
+        "method": "PUT",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/monitoring/alerts/ALERT_ID_HERE/resolve", "host": ["http://localhost:5000"], "path": ["api", "v1", "monitoring", "alerts", "ALERT_ID_HERE", "resolve"]}
+      }
+    },
+    {
+      "name": "Get Active Sessions",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/security/sessions", "host": ["http://localhost:5000"], "path": ["api", "v1", "security", "sessions"]}
+      }
+    },
+    {
+      "name": "Block IP",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/security/block-ip", "host": ["http://localhost:5000"], "path": ["api", "v1", "security", "block-ip"]},
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"ipAddress\": \"192.168.1.1\",\n  \"reason\": \"Manual Ban\"\n}",
+          "options": {"raw": {"language": "json"}}
+        }
+      }
+    },
+    {
+      "name": "Get Threat Dashboard",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/security/dashboard", "host": ["http://localhost:5000"], "path": ["api", "v1", "security", "dashboard"]}
+      }
+    }
+  ]
+}

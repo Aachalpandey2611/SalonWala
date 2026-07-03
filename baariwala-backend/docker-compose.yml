@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  SalonWala-api:
+    build:
+      context: .
+      target: builder
+    container_name: SalonWala-api-dev
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=development
+      - PORT=5000
+      - MONGO_URI=mongodb://mongo:27017/SalonWala
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=dev_secret_key
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run dev
+    depends_on:
+      - mongo
+      - redis
+    networks:
+      - SalonWala-network
+
+  mongo:
+    image: mongo:6.0
+    container_name: SalonWala-mongo-dev
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data-dev:/data/db
+    networks:
+      - SalonWala-network
+
+  redis:
+    image: redis:7.0-alpine
+    container_name: SalonWala-redis-dev
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data-dev:/data
+    networks:
+      - SalonWala-network
+
+volumes:
+  mongo-data-dev:
+  redis-data-dev:
+
+networks:
+  SalonWala-network:
+    driver: bridge

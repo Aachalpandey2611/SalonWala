@@ -1,0 +1,62 @@
+{
+  "info": {
+    "name": "SalonWala Booking Engine Core",
+    "description": "Postman Collection for SalonWala Booking APIs. Manages Appointments, History, and Audit Logs.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Appointments",
+      "item": [
+        {
+          "name": "Create Appointment",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/bookings", "host": ["http://localhost:5000"], "path": ["api", "v1", "bookings"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"salonId\": \"SALON_ID\",\n  \"branchId\": \"BRANCH_ID\",\n  \"barberId\": \"BARBER_ID\",\n  \"customerId\": \"CUSTOMER_ID\",\n  \"primaryServiceId\": \"SERVICE_ID\",\n  \"appointmentDate\": \"2023-12-01\",\n  \"appointmentStartTime\": \"09:00\",\n  \"appointmentEndTime\": \"09:30\",\n  \"reservedDurationInMinutes\": 30,\n  \"bookedPrice\": 25.00,\n  \"source\": \"APP\",\n  \"notes\": {\n    \"customerNotes\": \"Please use scissors on top.\",\n    \"sensitiveSkin\": true\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "Search Appointments",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/bookings/search?date=2023-12-01&status=PENDING", "host": ["http://localhost:5000"], "path": ["api", "v1", "bookings", "search"]}
+          }
+        },
+        {
+          "name": "Get Appointment Details",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/bookings/APPOINTMENT_ID", "host": ["http://localhost:5000"], "path": ["api", "v1", "bookings", "APPOINTMENT_ID"]}
+          }
+        },
+        {
+          "name": "Update Appointment (Status / Reschedule)",
+          "request": {
+            "method": "PATCH",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/bookings/APPOINTMENT_ID", "host": ["http://localhost:5000"], "path": ["api", "v1", "bookings", "APPOINTMENT_ID"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"CONFIRMED\",\n  \"updateReason\": \"Customer called to confirm\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Cancel / Soft Delete Appointment",
+          "request": {
+            "method": "DELETE",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/bookings/APPOINTMENT_ID", "host": ["http://localhost:5000"], "path": ["api", "v1", "bookings", "APPOINTMENT_ID"]}
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "info": {
+    "name": "SalonWala Salon Management Services",
+    "description": "Postman Collection for SalonWala Salon Management APIs.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Salon Core",
+      "item": [
+        {
+          "name": "Create Salon",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/salons", "host": ["http://localhost:5000"], "path": ["api", "v1", "salons"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Urban Barber Shop\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Salons",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/salons", "host": ["http://localhost:5000"], "path": ["api", "v1", "salons"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Salon Branches",
+      "item": [
+        {
+          "name": "Create Branch",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/salons/SALON_ID/branches", "host": ["http://localhost:5000"], "path": ["api", "v1", "salons", "SALON_ID", "branches"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Downtown Branch\",\n  \"branchCode\": \"URBAN_DT\",\n  \"phone\": \"9876543210\",\n  \"coordinates\": [77.5946, 12.9716],\n  \"address\": \"123 Main St\",\n  \"city\": \"Bangalore\",\n  \"state\": \"Karnataka\",\n  \"pincode\": \"560001\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Business Operations",
+      "item": [
+        {
+          "name": "Update Business Hours",
+          "request": {
+            "method": "PATCH",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/salons/branches/BRANCH_ID/hours", "host": ["http://localhost:5000"], "path": ["api", "v1", "salons", "branches", "BRANCH_ID", "hours"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"day\": \"Monday\",\n  \"isClosed\": false,\n  \"sessions\": [\n    {\"openTime\": \"09:00\", \"closeTime\": \"13:00\"},\n    {\"openTime\": \"14:00\", \"closeTime\": \"20:00\"}\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Holiday (Emergency)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/salons/holidays", "host": ["http://localhost:5000"], "path": ["api", "v1", "salons", "holidays"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"salonId\": \"SALON_ID\",\n  \"branchId\": \"BRANCH_ID\",\n  \"type\": \"EMERGENCY\",\n  \"emergencyReason\": \"POWER_FAILURE\",\n  \"reason\": \"No electricity in the block\",\n  \"date\": \"2023-11-20\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Media Uploads",
+      "item": [
+        {
+          "name": "Upload Verification Docs",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/salons/SALON_ID/verification", "host": ["http://localhost:5000"], "path": ["api", "v1", "salons", "SALON_ID", "verification"]},
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {"key": "gstDocument", "type": "file", "src": []},
+                {"key": "identityProof", "type": "file", "src": []}
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

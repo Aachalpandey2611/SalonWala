@@ -1,0 +1,66 @@
+{
+  "info": {
+    "name": "SalonWala Intelligent Queue Engine",
+    "description": "Postman Collection for Real-Time Queue Management and ETA recalculation.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Queue Operations",
+      "item": [
+        {
+          "name": "Join Queue",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/queue/join", "host": ["http://localhost:5000"], "path": ["api", "v1", "queue", "join"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"salonId\": \"SALON_ID\",\n  \"branchId\": \"BRANCH_ID\",\n  \"barberId\": \"BARBER_ID\",\n  \"source\": \"WALK_IN\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Live Queue",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {
+              "raw": "http://localhost:5000/api/v1/queue/live?barberId=BARBER_ID&date=2026-07-02",
+              "host": ["http://localhost:5000"],
+              "path": ["api", "v1", "queue", "live"],
+              "query": [
+                {"key": "barberId", "value": "BARBER_ID"},
+                {"key": "date", "value": "2026-07-02"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Recalculate Queue Manually",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/queue/recalculate", "host": ["http://localhost:5000"], "path": ["api", "v1", "queue", "recalculate"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"salonId\": \"SALON_ID\",\n  \"barberId\": \"BARBER_ID\",\n  \"date\": \"2026-07-02\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Queue Entry Status",
+          "request": {
+            "method": "PATCH",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/queue/ENTRY_ID/status", "host": ["http://localhost:5000"], "path": ["api", "v1", "queue", "ENTRY_ID", "status"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"IN_SERVICE\"\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "info": {
+    "name": "SalonWala Payroll Engine",
+    "description": "Postman Collection for SalonWala Payroll Engine. Contains all endpoints for Payroll Cycles, Generation, Adjustments, Approval, and Payslips.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Payroll Cycles",
+      "item": [
+        {
+          "name": "Get All Payroll Cycles",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ADMIN_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/payroll/cycles", "host": ["http://localhost:5000"], "path": ["api", "v1", "payroll", "cycles"]}
+          }
+        },
+        {
+          "name": "Create Payroll Cycle",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ADMIN_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/payroll/cycles", "host": ["http://localhost:5000"], "path": ["api", "v1", "payroll", "cycles"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"May 2026 Monthly\",\n  \"cycleType\": \"MONTHLY\",\n  \"startDate\": \"2026-05-01T00:00:00.000Z\",\n  \"endDate\": \"2026-05-31T23:59:59.999Z\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Generate Payroll For Cycle",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ADMIN_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/payroll/cycles/{{CYCLE_ID}}/generate", "host": ["http://localhost:5000"], "path": ["api", "v1", "payroll", "cycles", "{{CYCLE_ID}}", "generate"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"branchId\": \"BRANCH_ID_HERE\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Approve Payroll Cycle",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ADMIN_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/payroll/cycles/{{CYCLE_ID}}/approve", "host": ["http://localhost:5000"], "path": ["api", "v1", "payroll", "cycles", "{{CYCLE_ID}}", "approve"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payroll Management",
+      "item": [
+        {
+          "name": "Get Individual Payrolls",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ADMIN_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/payroll?cycleId={{CYCLE_ID}}", "host": ["http://localhost:5000"], "path": ["api", "v1", "payroll"], "query": [{"key": "cycleId", "value": "{{CYCLE_ID}}"}]}
+          }
+        },
+        {
+          "name": "Adjust Payroll (Bonus/Penalty)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ADMIN_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/payroll/{{PAYROLL_ID}}/adjust", "host": ["http://localhost:5000"], "path": ["api", "v1", "payroll", "{{PAYROLL_ID}}", "adjust"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"BONUS\",\n  \"amount\": 1000,\n  \"reason\": \"Exceptional performance\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Generate Payslip",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ADMIN_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/payroll/{{PAYROLL_ID}}/payslip", "host": ["http://localhost:5000"], "path": ["api", "v1", "payroll", "{{PAYROLL_ID}}", "payslip"]}
+          }
+        }
+      ]
+    }
+  ]
+}

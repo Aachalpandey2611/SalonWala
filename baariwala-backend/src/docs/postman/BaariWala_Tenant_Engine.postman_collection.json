@@ -1,0 +1,38 @@
+{
+  "info": {
+    "name": "SalonWala Tenant & Organization Engine",
+    "description": "Postman Collection for SalonWala Multi-Tenant SaaS Engine.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Tenant (SuperAdmin)",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Authorization", "value": "Bearer SUPER_ADMIN_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/tenants", "host": ["http://localhost:5000"], "path": ["api", "v1", "tenants"]},
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tenantName\": \"Tony's Salons SaaS\",\n  \"email\": \"tony@example.com\",\n  \"plan\": \"PROFESSIONAL\"\n}",
+          "options": {"raw": {"language": "json"}}
+        }
+      }
+    },
+    {
+      "name": "Get My Tenant Config",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/tenants/config/me", "host": ["http://localhost:5000"], "path": ["api", "v1", "tenants", "config", "me"]}
+      }
+    },
+    {
+      "name": "Suspend Tenant",
+      "request": {
+        "method": "PUT",
+        "header": [{"key": "Authorization", "value": "Bearer SUPER_ADMIN_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/tenants/:id/suspend", "host": ["http://localhost:5000"], "path": ["api", "v1", "tenants", ":id", "suspend"]}
+      }
+    }
+  ]
+}

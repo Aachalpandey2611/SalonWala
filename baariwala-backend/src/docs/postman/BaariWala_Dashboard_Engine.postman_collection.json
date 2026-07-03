@@ -1,0 +1,30 @@
+{
+  "info": {
+    "name": "SalonWala Executive Dashboard",
+    "description": "Postman Collection for SalonWala Executive Dashboard Engine.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get My Hydrated Dashboard",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/dashboards/me", "host": ["http://localhost:5000"], "path": ["api", "v1", "dashboards", "me"]}
+      }
+    },
+    {
+      "name": "Save Dashboard Preferences",
+      "request": {
+        "method": "PUT",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/dashboards/preferences", "host": ["http://localhost:5000"], "path": ["api", "v1", "dashboards", "preferences"]},
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"theme\": \"DARK\",\n  \"refreshInterval\": 30\n}",
+          "options": {"raw": {"language": "json"}}
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  SalonWala-api:
+    build:
+      context: .
+      target: production
+    container_name: SalonWala-api-prod
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env.production
+    depends_on:
+      - mongo
+      - redis
+    restart: unless-stopped
+    networks:
+      - SalonWala-prod-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  mongo:
+    image: mongo:6.0
+    container_name: SalonWala-mongo-prod
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data-prod:/data/db
+    networks:
+      - SalonWala-prod-network
+
+  redis:
+    image: redis:7.0-alpine
+    container_name: SalonWala-redis-prod
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data-prod:/data
+    networks:
+      - SalonWala-prod-network
+
+volumes:
+  mongo-data-prod:
+  redis-data-prod:
+
+networks:
+  SalonWala-prod-network:
+    driver: bridge

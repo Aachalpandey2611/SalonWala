@@ -1,0 +1,71 @@
+{
+  "info": {
+    "name": "SalonWala Procurement & Supply Chain Engine",
+    "description": "Postman Collection for SalonWala Procurement & Supply Chain Engine.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Suppliers",
+      "item": [
+        {
+          "name": "Create Supplier",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/procurement/suppliers", "host": ["http://localhost:5000"], "path": ["api", "v1", "procurement", "suppliers"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyName\": \"L'Oreal Professional India\",\n  \"gstNumber\": \"27AAAAA0000A1Z5\",\n  \"isPreferred\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Suppliers",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/procurement/suppliers", "host": ["http://localhost:5000"], "path": ["api", "v1", "procurement", "suppliers"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Purchase Orders",
+      "item": [
+        {
+          "name": "Create PO",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/procurement/orders", "host": ["http://localhost:5000"], "path": ["api", "v1", "procurement", "orders"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"branchId\": \"64123abc456def7890123456\",\n  \"supplierId\": \"SUPPLIER_ID_HERE\",\n  \"items\": [\n    {\n      \"productId\": \"PRODUCT_ID_HERE\",\n      \"expectedQuantity\": 50,\n      \"unitPrice\": 200\n    }\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Approve PO",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/procurement/orders/{{PO_ID}}/approve", "host": ["http://localhost:5000"], "path": ["api", "v1", "procurement", "orders", "{{PO_ID}}", "approve"]}
+          }
+        },
+        {
+          "name": "Receive Goods (GRN)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/procurement/orders/{{PO_ID}}/receive", "host": ["http://localhost:5000"], "path": ["api", "v1", "procurement", "orders", "{{PO_ID}}", "receive"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"purchaseOrderItemId\": \"ITEM_ID_HERE\",\n      \"productId\": \"PRODUCT_ID_HERE\",\n      \"acceptedQuantity\": 50\n    }\n  ]\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

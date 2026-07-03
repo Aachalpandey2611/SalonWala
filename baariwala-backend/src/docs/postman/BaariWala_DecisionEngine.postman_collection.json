@@ -1,0 +1,78 @@
+{
+  "info": {
+    "name": "SalonWala Decision Intelligence Engine",
+    "description": "Postman Collection for AI Recommendation APIs (Smart Slot, Smart Barber, Smart Service).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Recommendations",
+      "item": [
+        {
+          "name": "Recommend Barbers",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {
+              "raw": "http://localhost:5000/api/v1/recommendations/barbers?salonId=SALON_ID",
+              "host": ["http://localhost:5000"],
+              "path": ["api", "v1", "recommendations", "barbers"],
+              "query": [
+                {"key": "salonId", "value": "SALON_ID"},
+                {"key": "customerId", "value": "CUSTOMER_ID"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Recommend Services",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {
+              "raw": "http://localhost:5000/api/v1/recommendations/services?salonId=SALON_ID&serviceId=PRIMARY_SERVICE_ID",
+              "host": ["http://localhost:5000"],
+              "path": ["api", "v1", "recommendations", "services"],
+              "query": [
+                {"key": "salonId", "value": "SALON_ID"},
+                {"key": "serviceId", "value": "PRIMARY_SERVICE_ID"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Recommend Slot",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {
+              "raw": "http://localhost:5000/api/v1/recommendations/slots?salonId=SALON_ID&barberId=BARBER_ID&date=2026-07-02",
+              "host": ["http://localhost:5000"],
+              "path": ["api", "v1", "recommendations", "slots"],
+              "query": [
+                {"key": "salonId", "value": "SALON_ID"},
+                {"key": "barberId", "value": "BARBER_ID"},
+                {"key": "date", "value": "2026-07-02"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Recommend Recovery (Salon Closed)",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {
+              "raw": "http://localhost:5000/api/v1/recommendations/recovery?salonId=SALON_ID",
+              "host": ["http://localhost:5000"],
+              "path": ["api", "v1", "recommendations", "recovery"],
+              "query": [
+                {"key": "salonId", "value": "SALON_ID"}
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "info": {
+    "name": "SalonWala Payment Gateway",
+    "description": "Postman Collection for Payment endpoints (Razorpay Integration).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/payments/order", "host": ["http://localhost:5000"], "path": ["api", "v1", "payments", "order"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bookingId\": \"YOUR_BOOKING_ID_HERE\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Verify Payment Signature",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/payments/verify", "host": ["http://localhost:5000"], "path": ["api", "v1", "payments", "verify"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"razorpay_order_id\": \"order_xxx\",\n  \"razorpay_payment_id\": \"pay_xxx\",\n  \"razorpay_signature\": \"sig_xxx\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Razorpay Webhook Endpoint",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}, {"key": "x-razorpay-signature", "value": "VALID_SIGNATURE"}],
+            "url": {"raw": "http://localhost:5000/api/v1/payments/webhook/razorpay", "host": ["http://localhost:5000"], "path": ["api", "v1", "payments", "webhook", "razorpay"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": \"payment.captured\",\n  \"payload\": {\n    \"payment\": {\n      \"entity\": {\n        \"id\": \"pay_xxx\",\n        \"order_id\": \"order_xxx\",\n        \"status\": \"captured\"\n      }\n    }\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Payment Status",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/payments/:id", "host": ["http://localhost:5000"], "path": ["api", "v1", "payments", ":id"]},
+            "variable": [{"key": "id", "value": "BOOKING_ID_HERE"}]
+          }
+        }
+      ]
+    }
+  ]
+}

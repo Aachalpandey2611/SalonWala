@@ -1,0 +1,112 @@
+{
+  "info": {
+    "name": "SalonWala Availability Engine",
+    "description": "Postman Collection for SalonWala Availability, Shifts, Leaves, and Slot Generation Engine.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Admin Management",
+      "item": [
+        {
+          "name": "Set Working Hours",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/availability/BARBER_ID/hours", "host": ["http://localhost:5000"], "path": ["api", "v1", "availability", "BARBER_ID", "hours"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"branchId\": \"BRANCH_ID\",\n  \"day\": \"Monday\",\n  \"isOff\": false,\n  \"sessions\": [\n    {\"startTime\": \"09:00\", \"endTime\": \"13:00\"},\n    {\"startTime\": \"14:00\", \"endTime\": \"19:00\"}\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Shift",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/availability/BARBER_ID/shifts", "host": ["http://localhost:5000"], "path": ["api", "v1", "availability", "BARBER_ID", "shifts"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"branchId\": \"BRANCH_ID\",\n  \"type\": \"MORNING\",\n  \"sessions\": [\n    {\"startTime\": \"06:00\", \"endTime\": \"12:00\"}\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Force Availability Exception",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/availability/BARBER_ID/exceptions", "host": ["http://localhost:5000"], "path": ["api", "v1", "availability", "BARBER_ID", "exceptions"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"FORCE_UNAVAILABLE\",\n  \"startTime\": \"2023-11-20T09:00:00.000Z\",\n  \"endTime\": \"2023-11-20T12:00:00.000Z\",\n  \"reason\": \"Emergency Meeting\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Barber Requests",
+      "item": [
+        {
+          "name": "Request Break",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/availability/BARBER_ID/breaks", "host": ["http://localhost:5000"], "path": ["api", "v1", "availability", "BARBER_ID", "breaks"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"branchId\": \"BRANCH_ID\",\n  \"type\": \"LUNCH\",\n  \"isRecurring\": true,\n  \"startTime\": \"13:00\",\n  \"endTime\": \"14:00\",\n  \"durationInMinutes\": 60\n}"
+            }
+          }
+        },
+        {
+          "name": "Request Leave",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/availability/BARBER_ID/leaves", "host": ["http://localhost:5000"], "path": ["api", "v1", "availability", "BARBER_ID", "leaves"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"MEDICAL\",\n  \"startDate\": \"2023-12-01\",\n  \"endDate\": \"2023-12-03\",\n  \"durationInDays\": 3,\n  \"reason\": \"Fever\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Leave Status",
+          "request": {
+            "method": "PATCH",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/availability/leaves/LEAVE_ID/status", "host": ["http://localhost:5000"], "path": ["api", "v1", "availability", "leaves", "LEAVE_ID", "status"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"APPROVED\",\n  \"adminNotes\": \"Take care.\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Scheduling Engine (Public)",
+      "item": [
+        {
+          "name": "Generate Time Slots",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {"raw": "http://localhost:5000/api/v1/availability/slots?barberId=BARBER_ID&date=2023-11-20&slotDurationInMinutes=15", "host": ["http://localhost:5000"], "path": ["api", "v1", "availability", "slots"]}
+          }
+        },
+        {
+          "name": "Check Availability",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {"raw": "http://localhost:5000/api/v1/availability/check?barberId=BARBER_ID&serviceId=SERVICE_ID&date=2023-11-20", "host": ["http://localhost:5000"], "path": ["api", "v1", "availability", "check"]}
+          }
+        }
+      ]
+    }
+  ]
+}

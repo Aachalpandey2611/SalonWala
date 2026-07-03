@@ -1,0 +1,54 @@
+{
+  "info": {
+    "name": "SalonWala Audit & Config Engine",
+    "description": "Postman Collection for SalonWala Phase 9 Compliance & Governance.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Audit Logs",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/audit/logs?module=BOOKING", "host": ["http://localhost:5000"], "path": ["api", "v1", "audit", "logs"], "query": [{"key": "module", "value": "BOOKING"}]}
+      }
+    },
+    {
+      "name": "Get Security Events",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/audit/security-events", "host": ["http://localhost:5000"], "path": ["api", "v1", "audit", "security-events"]}
+      }
+    },
+    {
+      "name": "Create or Update Setting",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/config/settings", "host": ["http://localhost:5000"], "path": ["api", "v1", "config", "settings"]},
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"key\": \"booking.maxAdvanceDays\",\n  \"value\": 30,\n  \"type\": \"number\",\n  \"level\": \"TENANT\",\n  \"tenantId\": \"TENANT_ID_HERE\"\n}",
+          "options": {"raw": {"language": "json"}}
+        }
+      }
+    },
+    {
+      "name": "Resolve Setting",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/config/settings/booking.maxAdvanceDays/resolve?tenantId=TENANT_ID_HERE", "host": ["http://localhost:5000"], "path": ["api", "v1", "config", "settings", "booking.maxAdvanceDays", "resolve"], "query": [{"key": "tenantId", "value": "TENANT_ID_HERE"}]}
+      }
+    },
+    {
+      "name": "Check Feature Flag",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+        "url": {"raw": "http://localhost:5000/api/v1/config/flags/ENABLE_AI_RECOMMENDATIONS/check?tenantId=TENANT_ID_HERE", "host": ["http://localhost:5000"], "path": ["api", "v1", "config", "flags", "ENABLE_AI_RECOMMENDATIONS", "check"], "query": [{"key": "tenantId", "value": "TENANT_ID_HERE"}]}
+      }
+    }
+  ]
+}

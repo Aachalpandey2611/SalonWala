@@ -1,0 +1,92 @@
+{
+  "info": {
+    "name": "SalonWala Attendance Engine",
+    "description": "Postman Collection for SalonWala Attendance Engine.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Shifts",
+      "item": [
+        {
+          "name": "Create Shift",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/attendance/shifts", "host": ["http://localhost:5000"], "path": ["api", "v1", "attendance", "shifts"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Morning Shift\",\n  \"shiftType\": \"MORNING\",\n  \"startTime\": \"09:00\",\n  \"endTime\": \"17:00\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Assign Shift",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/attendance/shifts/assign", "host": ["http://localhost:5000"], "path": ["api", "v1", "attendance", "shifts", "assign"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeeId\": \"64123abc456def7890123456\",\n  \"shiftId\": \"64123abc456def7890123457\",\n  \"startDate\": \"2026-05-01T00:00:00.000Z\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Attendance Operations",
+      "item": [
+        {
+          "name": "Check In",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/attendance/check-in", "host": ["http://localhost:5000"], "path": ["api", "v1", "attendance", "check-in"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"QR_CODE\",\n  \"location\": {\"lat\": 40.7128, \"lng\": -74.0060}\n}"
+            }
+          }
+        },
+        {
+          "name": "Check Out",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/attendance/check-out", "host": ["http://localhost:5000"], "path": ["api", "v1", "attendance", "check-out"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"QR_CODE\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Leave Management",
+      "item": [
+        {
+          "name": "Apply for Leave",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/attendance/leave", "host": ["http://localhost:5000"], "path": ["api", "v1", "attendance", "leave"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"leaveType\": \"CASUAL\",\n  \"startDate\": \"2026-06-10\",\n  \"endDate\": \"2026-06-12\",\n  \"totalDays\": 3,\n  \"reason\": \"Family function\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Approve Leave",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_TOKEN"}],
+            "url": {"raw": "http://localhost:5000/api/v1/attendance/leave/{{LEAVE_ID}}/approve", "host": ["http://localhost:5000"], "path": ["api", "v1", "attendance", "leave", "{{LEAVE_ID}}", "approve"]}
+          }
+        }
+      ]
+    }
+  ]
+}

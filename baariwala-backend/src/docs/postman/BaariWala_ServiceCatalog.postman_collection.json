@@ -1,0 +1,117 @@
+{
+  "info": {
+    "name": "SalonWala Service Catalog & Pricing Engine",
+    "description": "Postman Collection for SalonWala Service Catalog, Pricing, Taxes, and Discounts.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/catalog/categories", "host": ["http://localhost:5000"], "path": ["api", "v1", "catalog", "categories"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"salonId\": \"SALON_ID\",\n  \"name\": \"Haircut\",\n  \"description\": \"Premium hair styling services\",\n  \"displayOrder\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {"raw": "http://localhost:5000/api/v1/catalog/categories?salonId=SALON_ID", "host": ["http://localhost:5000"], "path": ["api", "v1", "catalog", "categories"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Services",
+      "item": [
+        {
+          "name": "Create Service",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/catalog/services", "host": ["http://localhost:5000"], "path": ["api", "v1", "catalog", "services"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"salonId\": \"SALON_ID\",\n  \"branchId\": \"BRANCH_ID\",\n  \"categoryId\": \"CATEGORY_ID\",\n  \"name\": \"Premium Fade\",\n  \"durationInMinutes\": 30,\n  \"preparationTimeInMinutes\": 5,\n  \"cleanupTimeInMinutes\": 10,\n  \"basePrice\": 500,\n  \"currency\": \"INR\",\n  \"gstPercentage\": 18\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Services",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {"raw": "http://localhost:5000/api/v1/catalog/services?branchId=BRANCH_ID", "host": ["http://localhost:5000"], "path": ["api", "v1", "catalog", "services"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Smart Add-ons",
+      "item": [
+        {
+          "name": "Create Add-on",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/catalog/services/PARENT_SERVICE_ID/addons", "host": ["http://localhost:5000"], "path": ["api", "v1", "catalog", "services", "PARENT_SERVICE_ID", "addons"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"addonServiceId\": \"ADDON_SERVICE_ID\",\n  \"additionalDurationInMinutes\": 15,\n  \"additionalPrice\": 200\n}"
+            }
+          }
+        },
+        {
+          "name": "Calculate Total (Smart Engine)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/catalog/calculate", "host": ["http://localhost:5000"], "path": ["api", "v1", "catalog", "calculate"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"serviceId\": \"SERVICE_ID\",\n  \"addonIds\": [\"ADDON_SERVICE_ID\"]\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Pricing & Tax",
+      "item": [
+        {
+          "name": "Create Pricing Override",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/catalog/services/SERVICE_ID/pricing", "host": ["http://localhost:5000"], "path": ["api", "v1", "catalog", "services", "SERVICE_ID", "pricing"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"WEEKEND\",\n  \"priceMultiplier\": 1.2\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Tax",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN"}, {"key": "Content-Type", "value": "application/json"}],
+            "url": {"raw": "http://localhost:5000/api/v1/catalog/taxes", "host": ["http://localhost:5000"], "path": ["api", "v1", "catalog", "taxes"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"salonId\": \"SALON_ID\",\n  \"name\": \"CGST\",\n  \"type\": \"GST\",\n  \"percentage\": 9\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
