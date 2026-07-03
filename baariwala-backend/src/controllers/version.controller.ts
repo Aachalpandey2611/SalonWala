@@ -24,7 +24,7 @@ export const updateClientCompatController = catchAsync(async (req: Request, res:
     { upsert: true, new: true }
   );
   
-  await EventBusService.publish('ClientCompatUpdated', { platform });
+  await EventBusService.publish('ClientCompatUpdated', { platform }, 'VersionController');
 
   res.status(200).json({ success: true, data: compat });
 });

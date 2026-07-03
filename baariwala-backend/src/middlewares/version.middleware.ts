@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { VersionService } from '../services/version.service';
 import { ClientPlatform } from '../models/ClientCompatibility';
-import { AppError } from './error.middleware';
+import { AppError } from '../utils/AppError';
 
 /**
  * Intercepts requests, parses API version, and injects Deprecation Headers if applicable

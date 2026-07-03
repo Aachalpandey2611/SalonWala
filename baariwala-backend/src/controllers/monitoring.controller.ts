@@ -4,7 +4,7 @@ import { SystemMetric, MetricType } from '../models/SystemMetric';
 import { Alert } from '../models/Alert';
 import { catchAsync } from '../utils/catchAsync';
 import { MonitoringService } from '../services/monitoring.service';
-import { AppError } from '../middlewares/error.middleware';
+import { AppError } from '../utils/AppError';
 
 export const getHealthDashboardController = catchAsync(async (req: Request, res: Response) => {
   // Fire off an active check right before serving dashboard

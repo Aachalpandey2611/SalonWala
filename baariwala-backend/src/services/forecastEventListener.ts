@@ -16,7 +16,7 @@ export const setupForecastEventListeners = () => {
       logger.info(`[ForecastEngine] Generated Revenue Forecasts & Recommendations for Salon ${salonId}`);
       
       // Optionally publish a 'ForecastGenerated' event if other modules need to know
-      EventBusService.publish('ForecastGenerated', { salonId, branchId, timestamp: new Date() });
+      EventBusService.publish('ForecastGenerated', { salonId, branchId, timestamp: new Date() }, 'ForecastEngine');
       
     } catch (error) {
       logger.error(`[ForecastEngine] Forecasting simulation failed`, error);

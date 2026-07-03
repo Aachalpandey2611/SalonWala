@@ -29,7 +29,7 @@ export const logDeploymentWebhookController = catchAsync(async (req: Request, re
     completedAt: status === DeploymentStatus.SUCCESS || status === DeploymentStatus.FAILED ? new Date() : undefined
   });
   
-  await EventBusService.publish('DeploymentLogged', { deploymentId: deployment._id, status });
+  await EventBusService.publish('DeploymentLogged', { deploymentId: deployment._id, status }, 'DeploymentController');
 
   res.status(201).json({ success: true, data: deployment });
 });

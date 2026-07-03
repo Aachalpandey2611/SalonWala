@@ -16,7 +16,7 @@ export class BackupService {
       status: BackupStatus.IN_PROGRESS
     });
     
-    await EventBusService.publish('BackupStarted', { jobId: job._id, type });
+    await EventBusService.publish('BackupStarted', { jobId: job._id, type }, 'BackupService');
     
     try {
       // Simulate backup process
@@ -31,7 +31,7 @@ export class BackupService {
       
       await job.save();
       
-      await EventBusService.publish('BackupCompleted', { jobId: job._id, type });
+      await EventBusService.publish('BackupCompleted', { jobId: job._id, type }, 'BackupService');
       logger.info(`[BACKUP] Successfully completed ${type} backup. Size: ${fakeSize}MB`);
       
     } catch (error: any) {
@@ -39,7 +39,7 @@ export class BackupService {
       job.error = error.message;
       await job.save();
       
-      await EventBusService.publish('BackupFailed', { jobId: job._id, type, error: error.message });
+      await EventBusService.publish('BackupFailed', { jobId: job._id, type, error: error.message }, 'BackupService');
       logger.error(`[BACKUP] Failed ${type} backup`, error);
     }
     
@@ -64,7 +64,7 @@ export class BackupService {
       startedAt: new Date()
     });
     
-    await EventBusService.publish('RestoreStarted', { restoreId: restore._id, type: backup.type });
+    await EventBusService.publish('RestoreStarted', { restoreId: restore._id, type: backup.type }, 'BackupService');
     
     try {
       // Simulate restore processing
@@ -72,7 +72,7 @@ export class BackupService {
       restore.completedAt = new Date();
       await restore.save();
       
-      await EventBusService.publish('RestoreCompleted', { restoreId: restore._id, type: backup.type });
+      await EventBusService.publish('RestoreCompleted', { restoreId: restore._id, type: backup.type }, 'BackupService');
       logger.info(`[RESTORE] Successfully restored ${backup.type} from job ${backupJobId}`);
       
     } catch (error: any) {

@@ -36,25 +36,26 @@ export const createOrUpdateSettingController = catchAsync(async (req: Request, r
     });
   }
 
-  EventBusService.publish('ConfigurationUpdated', { key, level });
+  EventBusService.publish('ConfigurationUpdated', { key, level }, 'ConfigController');
 
   res.status(200).json({ success: true, data: setting });
 });
 
 export const resolveSettingController = catchAsync(async (req: Request, res: Response) => {
-  const { key } = req.params;
-  const { tenantId, branchId } = req.query;
+  const key = req.params.key as string;
+  const tenantId = typeof req.query.tenantId === 'string' ? req.query.tenantId : undefined;
+  const branchId = typeof req.query.branchId === 'string' ? req.query.branchId : undefined;
 
-  const value = await ConfigService.resolveSetting(key, tenantId as string, branchId as string);
+  const value = await ConfigService.resolveSetting(key, tenantId, branchId);
 
   res.status(200).json({ success: true, data: { key, value } });
 });
 
 export const checkFeatureFlagController = catchAsync(async (req: Request, res: Response) => {
-  const { key } = req.params;
-  const { tenantId } = req.query;
+  const key = req.params.key as string;
+  const tenantId = typeof req.query.tenantId === 'string' ? req.query.tenantId : undefined;
 
-  const isEnabled = await ConfigService.isFeatureEnabled(key, tenantId as string);
+  const isEnabled = await ConfigService.isFeatureEnabled(key, tenantId);
 
   res.status(200).json({ success: true, data: { key, isEnabled } });
 });
